@@ -1,5 +1,6 @@
 ﻿using System;
-namespace WebApplication1.Models
+
+namespace YarnShop.Models
 {
     public class Item
     {

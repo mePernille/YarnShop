@@ -3,33 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Models; // this will identifie the Item Class
-using WebApplication1.ViewModels;
+using YarnShop.ViewModels;
+using YarnShop.Models;
 
-
-namespace WebApplication1.Controllers;
+namespace YarnShop.Controllers;
 
 public class ItemController : Controller
 {
+
+    private readonly ItemDbContext _itemDbContext;
+
+    public ItemController(ItemDbContext itemDbContext)
+    { 
+        _itemDbContext = itemDbContext;
+    }
     public IActionResult Table()
     {
-        var items = GetItems();
+        List<Item> items = _itemDbContext.Items.ToList(); // Getting the items from the database now
         var itemListViewModel = new ItemListViewModel(items, "Table");
         return View(itemListViewModel);
     }
 
     public IActionResult Grid()
     {
-        var items = GetItems();
+        List<Item> items = _itemDbContext.Items.ToList(); //var items = GetItems();
         var itemListViewModel = new ItemListViewModel(items, "Grid");
         return View(itemListViewModel);
     }
 
     public IActionResult Details(int id)
     {
-        var items = GetItems();
+        List<Item> items = _itemDbContext.Items.ToList();
         var item = items.FirstOrDefault(item => item.ItemId == id);
-        if (item == null)
+        if (item == null) // chekking if it exist.
             return NotFound();
         return View(item);
     }
@@ -52,7 +58,7 @@ public class ItemController : Controller
             ItemId = 2,
             Name = "Alpakka ull",
             Price = 86,
-            Description="Super flot og dyrt garn",
+            Description = "Super flot og dyrt garn",
             ImageUrl = "/images/masseGarn.jpg"
         };
 

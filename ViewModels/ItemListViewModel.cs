@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using WebApplication1.Models;
+using YarnShop.Models;
 
-
-namespace WebApplication1.ViewModels
+namespace YarnShop.ViewModels
 {
     public class ItemListViewModel
     {
         public IEnumerable<Item> Items;
         public string? CurrentViewName;
 
-        public ItemListViewModel(IEnumerable<Item> items, string? currentViewName) 
-        { 
-        
+        public ItemListViewModel(IEnumerable<Item> items, string? currentViewName)
+        {
+
             Items = items;
             CurrentViewName = currentViewName;
         }
